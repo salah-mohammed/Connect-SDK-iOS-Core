@@ -356,12 +356,16 @@
 //    }
 //}
 -(void)alertViewOk{
+    if(self.pairingType == DeviceServicePairingTypePinCode || self.pairingType == DeviceServicePairingTypeMixed){
     NSString *pairingCode = _alert.textFields[0].text;
     [self sendPairingKey:pairingCode success:nil failure:nil];
+    }
     [_alert dismissViewControllerAnimated:true completion:nil];
 }
 -(void)alertViewCancel{
+    if(self.pairingType == DeviceServicePairingTypePinCode || self.pairingType == DeviceServicePairingTypeMixed){
     [self disconnect];
+    }
     [_alert dismissViewControllerAnimated:true completion:nil];
 }
 -(void) showAlertWithTitle:(NSString *)title andMessage:(NSString *)message
