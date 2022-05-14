@@ -407,9 +407,9 @@
 {
     [_pairingTimer invalidate];
 
-    if (_alert && _alert.isModalInPresentation)
+    if (_alert && _alert.isBeingPresented){
         dispatch_on_main(^{ [self alertViewOk];});
-
+    }
     if ([self.delegate respondsToSelector:@selector(deviceServicePairingSuccess:)])
         dispatch_on_main(^{ [self.delegate deviceServicePairingSuccess:self]; });
 
@@ -419,7 +419,7 @@
 
 - (void) socket:(WebOSTVServiceSocketClient *)socket didFailWithError:(NSError *)error
 {
-    if (_alert && _alert.isModalInPresentation)
+    if (_alert && _alert.isBeingPresented)
         dispatch_on_main(^{ [self alertViewCancel]; });
 
     if ([self.delegate respondsToSelector:@selector(deviceService:didFailConnectWithError:)])
