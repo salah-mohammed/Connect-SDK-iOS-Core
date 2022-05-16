@@ -124,6 +124,7 @@
         case WebOSTVMouseButtonDown: keyString = @"DOWN"; break;
         case WebOSTVMouseButtonLeft: keyString = @"LEFT"; break;
         case WebOSTVMouseButtonRight: keyString = @"RIGHT"; break;
+        //new
         case WebOSTVMouseButtonEnter : keyString = @"ENTER"; break;
         case WebOSTVMouseButtonMenu : keyString = @"MENU"; break;
         case WebOSTVMouseButtonInfo : keyString = @"INFFO"; break;

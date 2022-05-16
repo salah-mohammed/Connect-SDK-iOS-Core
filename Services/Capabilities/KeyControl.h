@@ -31,6 +31,11 @@
 #define kKeyControlBack @"KeyControl.Back"
 #define kKeyControlHome @"KeyControl.Home"
 #define kKeyControlSendKeyCode @"KeyControl.Send.KeyCode"
+//new
+#define kKeyControlEnter @"KeyControl.Enter"
+#define kKeyControlMenu @"KeyControl.Menu"
+#define kKeyControlInfo @"KeyControl.Info"
+#define kKeyControlExit @"KeyControl.Exit"
 
 #define kKeyControlCapabilities @[\
     kKeyControlUp,\
@@ -40,7 +45,11 @@
     kKeyControlOK,\
     kKeyControlBack,\
     kKeyControlHome,\
-    kKeyControlSendKeyCode\
+    kKeyControlSendKeyCode,\
+    kKeyControlEnter,\
+    kKeyControlMenu,\
+    kKeyControlInfo,\
+    kKeyControlExit\
 ]
 
 @protocol KeyControl <NSObject>

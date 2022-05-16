@@ -163,6 +163,11 @@
                 kKeyControlHome,
                 kKeyControlBack,
                 kKeyControlOK
+                //new
+                kKeyControlEnter,
+                kKeyControlMenu,
+                kKeyControlInfo,
+                kKeyControlExit
         ]];
 
         capabilities = [capabilities arrayByAddingObjectsFromArray:kMouseControlCapabilities];
