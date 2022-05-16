@@ -28,6 +28,10 @@ typedef enum {
     WebOSTVMouseButtonDown = 1003,
     WebOSTVMouseButtonLeft = 1004,
     WebOSTVMouseButtonRight = 1005
+    WebOSTVMouseButtonEnter = 1006,
+    WebOSTVMouseButtonMenu = 1007,
+    WebOSTVMouseButtonInfo = 1008,
+    WebOSTVMouseButtonExit = 1009
 } WebOSTVMouseButton;
 
 @interface WebOSTVServiceMouse : NSObject
