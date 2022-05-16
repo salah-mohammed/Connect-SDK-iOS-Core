@@ -36,6 +36,10 @@
 #define kKeyControlMenu @"KeyControl.Menu"
 #define kKeyControlInfo @"KeyControl.Info"
 #define kKeyControlExit @"KeyControl.Exit"
+#define kKeyControlRed @"KeyControl.Red"
+#define kKeyControlGreen @"KeyControl.Green"
+#define kKeyControlYellow @"KeyControl.Yellow"
+#define kKeyControlBlue @"KeyControl.Blue"
 
 #define kKeyControlCapabilities @[\
     kKeyControlUp,\
@@ -49,7 +53,11 @@
     kKeyControlEnter,\
     kKeyControlMenu,\
     kKeyControlInfo,\
-    kKeyControlExit\
+    kKeyControlExit,\
+    kKeyControlRed,\
+    kKeyControlGreen,\
+    kKeyControlYellow,\
+    kKeyControlBlue\
 ]
 
 @protocol KeyControl <NSObject>

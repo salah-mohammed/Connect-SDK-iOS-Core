@@ -167,7 +167,11 @@
                 kKeyControlEnter,
                 kKeyControlMenu,
                 kKeyControlInfo,
-                kKeyControlExit
+                kKeyControlExit,
+                kKeyControlRed,
+                kKeyControlGreen,
+                kKeyControlYellow,
+                kKeyControlBlue
         ]];
 
         capabilities = [capabilities arrayByAddingObjectsFromArray:kMouseControlCapabilities];
