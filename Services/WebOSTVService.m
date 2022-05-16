@@ -1532,7 +1532,9 @@
 {
     [self sendMouseButton:WebOSTVMouseButtonHome success:success failure:failure];
 }
-
+- (void) menuWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonMenu success:success failure:failure];
+}
 - (void)sendKeyCode:(NSUInteger)keyCode success:(SuccessBlock)success failure:(FailureBlock)failure
 {
     [self sendNotSupportedFailure:failure];

@@ -64,6 +64,7 @@
 - (void) okWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) backWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) homeWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) menuWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) sendMouseButton:(NSUInteger)button success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 - (void) sendKeyCode:(NSUInteger)keyCode success:(SuccessBlock)success failure:(FailureBlock)failure;
