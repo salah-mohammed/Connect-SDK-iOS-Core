@@ -41,6 +41,7 @@
 #define kKeyControlYellow @"KeyControl.Yellow"
 #define kKeyControlBlue @"KeyControl.Blue"
 #define kKeyControlList @"KeyControl.List"
+#define kKeyControlAD @"KeyControl.AD"
 
 #define kKeyControlCapabilities @[\
     kKeyControlUp,\
@@ -59,7 +60,8 @@
     kKeyControlGreen,\
     kKeyControlYellow,\
     kKeyControlBlue,\
-    kKeyControlList\
+    kKeyControlList,\
+    kKeyControlAD\
 ]
 
 @protocol KeyControl <NSObject>
@@ -81,6 +83,8 @@
 - (void) yellowWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) blueWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) listWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) adWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+
 - (void) sendKeyCode:(NSUInteger)keyCode success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 @end

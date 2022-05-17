@@ -1555,6 +1555,9 @@
 - (void) listWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
     [self sendMouseButton:WebOSTVMouseButtonList success:success failure:failure];
 }
+- (void) adWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonAD success:success failure:failure];
+}
 - (void)sendKeyCode:(NSUInteger)keyCode success:(SuccessBlock)success failure:(FailureBlock)failure
 {
     [self sendNotSupportedFailure:failure];
