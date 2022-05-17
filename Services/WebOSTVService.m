@@ -171,7 +171,8 @@
                 kKeyControlRed,
                 kKeyControlGreen,
                 kKeyControlYellow,
-                kKeyControlBlue
+                kKeyControlBlue,
+                kKeyControlList
         ]];
 
         capabilities = [capabilities arrayByAddingObjectsFromArray:kMouseControlCapabilities];
@@ -1550,6 +1551,9 @@
 }
 - (void) blueWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
     [self sendMouseButton:WebOSTVMouseButtonBlue success:success failure:failure];
+}
+- (void) listWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonList success:success failure:failure];
 }
 - (void)sendKeyCode:(NSUInteger)keyCode success:(SuccessBlock)success failure:(FailureBlock)failure
 {
