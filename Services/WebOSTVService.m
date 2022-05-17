@@ -1539,6 +1539,18 @@
 - (void) menuWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
     [self sendMouseButton:WebOSTVMouseButtonMenu success:success failure:failure];
 }
+- (void) redWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonRed success:success failure:failure];
+}
+- (void) greenWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonGreen success:success failure:failure];
+}
+- (void) yellowWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonYellow success:success failure:failure];
+}
+- (void) blueWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonBlue success:success failure:failure];
+}
 - (void)sendKeyCode:(NSUInteger)keyCode success:(SuccessBlock)success failure:(FailureBlock)failure
 {
     [self sendNotSupportedFailure:failure];

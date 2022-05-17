@@ -74,7 +74,10 @@
 - (void) homeWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) menuWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) sendMouseButton:(NSUInteger)button success:(SuccessBlock)success failure:(FailureBlock)failure;
-
+- (void) redWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) greenWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) yellowWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) blueWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) sendKeyCode:(NSUInteger)keyCode success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 @end
