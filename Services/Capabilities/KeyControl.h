@@ -42,6 +42,19 @@
 #define kKeyControlBlue @"KeyControl.Blue"
 #define kKeyControlList @"KeyControl.List"
 #define kKeyControlAD @"KeyControl.AD"
+#define kKeyControl0 @"KeyControl.0"
+#define kKeyControl1 @"KeyControl.1"
+#define kKeyControl2 @"KeyControl.2"
+#define kKeyControl3 @"KeyControl.3"
+#define kKeyControl4 @"KeyControl.4"
+#define kKeyControl5 @"KeyControl.5"
+#define kKeyControl6 @"KeyControl.6"
+#define kKeyControl7 @"KeyControl.7"
+#define kKeyControl8 @"KeyControl.8"
+#define kKeyControl9 @"KeyControl.9"
+#define kKeyControlSearch @"KeyControl.Search"
+#define kKeyControlScreenRemote @"kKeyControl.ScreenRemote"
+#define kKeyControlMute @"kKeyControl.Mute"
 
 #define kKeyControlCapabilities @[\
     kKeyControlUp,\
@@ -61,7 +74,20 @@
     kKeyControlYellow,\
     kKeyControlBlue,\
     kKeyControlList,\
-    kKeyControlAD\
+    kKeyControlAD,\
+    kKeyControl0,\
+    kKeyControl1,\
+    kKeyControl2,\
+    kKeyControl3,\
+    kKeyControl4,\
+    kKeyControl5,\
+    kKeyControl6,\
+    kKeyControl7,\
+    kKeyControl8,\
+    kKeyControl9,\
+    kKeyControlSearch,\
+    kKeyControlScreenRemote,\
+    kKeyControlMute\
 ]
 
 @protocol KeyControl <NSObject>
@@ -77,13 +103,27 @@
 - (void) backWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) homeWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) menuWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
-- (void) sendMouseButton:(NSUInteger)button success:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) redWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) greenWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) yellowWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) blueWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) listWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) adWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) number0WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) number1WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) number2WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) number3WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) number4WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) number5WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) number6WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) number7WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) number8WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) number9WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) searchWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) screenRemoteSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) muteSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+
+- (void) sendMouseButton:(NSUInteger)button success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 - (void) sendKeyCode:(NSUInteger)keyCode success:(SuccessBlock)success failure:(FailureBlock)failure;
 

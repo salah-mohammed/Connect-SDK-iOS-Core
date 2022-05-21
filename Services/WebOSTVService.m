@@ -172,7 +172,21 @@
                 kKeyControlGreen,
                 kKeyControlYellow,
                 kKeyControlBlue,
-                kKeyControlList
+                kKeyControlList,
+                kKeyControlAD,
+                kKeyControl0,
+                kKeyControl1,
+                kKeyControl2,
+                kKeyControl3,
+                kKeyControl4,
+                kKeyControl5,
+                kKeyControl6,
+                kKeyControl7,
+                kKeyControl8,
+                kKeyControl9,
+                kKeyControlSearch,
+                kKeyControlScreenRemote,
+                kKeyControlMute
         ]];
 
         capabilities = [capabilities arrayByAddingObjectsFromArray:kMouseControlCapabilities];

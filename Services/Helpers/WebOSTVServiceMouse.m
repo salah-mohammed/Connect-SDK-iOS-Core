@@ -135,6 +135,19 @@
         case WebOSTVMouseButtonBlue : keyString = @"BLUE"; break;
         case WebOSTVMouseButtonList : keyString = @"LIST"; break;
         case WebOSTVMouseButtonAD : keyString = @"AD"; break;
+        case WebOSTVMouseButton0 : keyString = @"0"; break;
+        case WebOSTVMouseButton1 : keyString = @"1"; break;
+        case WebOSTVMouseButton2 : keyString = @"2"; break;
+        case WebOSTVMouseButton3 : keyString = @"3"; break;
+        case WebOSTVMouseButton4 : keyString = @"4"; break;
+        case WebOSTVMouseButton5 : keyString = @"5"; break;
+        case WebOSTVMouseButton6 : keyString = @"6"; break;
+        case WebOSTVMouseButton7 : keyString = @"7"; break;
+        case WebOSTVMouseButton8 : keyString = @"8"; break;
+        case WebOSTVMouseButton9 : keyString = @"9"; break;
+        case WebOSTVMouseButtonSearch : keyString = @"SEARCH"; break;
+        case WebOSTVMouseButtonScreenRemote : keyString = @"SCREEN_REMOTE"; break;
+        case WebOSTVMouseButtonMute : keyString = @"MUTE"; break;
         default:break;
     }
 
