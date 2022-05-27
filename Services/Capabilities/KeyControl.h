@@ -102,6 +102,7 @@
 - (void) okWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) backWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) homeWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void) enterWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) menuWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) redWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) greenWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
