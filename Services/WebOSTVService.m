@@ -1576,6 +1576,45 @@
 - (void) adWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
     [self sendMouseButton:WebOSTVMouseButtonAD success:success failure:failure];
 }
+- (void) number0WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton0 success:success failure:failure];
+}
+- (void) number1WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton1 success:success failure:failure];
+}
+- (void) number2WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton2 success:success failure:failure];
+}
+- (void) number3WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton3 success:success failure:failure];
+}
+- (void) number4WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton4 success:success failure:failure];
+}
+- (void) number5WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton5 success:success failure:failure];
+}
+- (void) number6WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton6 success:success failure:failure];
+}
+- (void) number7WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton7 success:success failure:failure];
+}
+- (void) number8WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton8 success:success failure:failure];
+}
+- (void) number9WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton9 success:success failure:failure];
+}
+- (void) searchWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonSearch success:success failure:failure];
+}
+- (void) screenRemoteSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonScreenRemote success:success failure:failure];
+}
+- (void) muteSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonMute success:success failure:failure];
+}
 - (void)sendKeyCode:(NSUInteger)keyCode success:(SuccessBlock)success failure:(FailureBlock)failure
 {
     [self sendNotSupportedFailure:failure];
