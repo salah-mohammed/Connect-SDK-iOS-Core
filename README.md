@@ -1,3 +1,4 @@
+#new
 #Connect SDK Core (iOS)
 The Connect SDK Core contains all of the core classes required for basic operation of Connect SDK. The core also includes support for some select protocols which do not have any heavy and/or external dependencies. These protocols include:
 - Apple TV
