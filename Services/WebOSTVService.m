@@ -26,7 +26,7 @@
 #import "WebOSTVServiceSocketClient.h"
 #import "CTGuid.h"
 #import "CommonMacros.h"
-#import "NSMutableDictionary+NilSafe.h"
+
 #import "NSObject+FeatureNotSupported_Private.h"
 
 #define kKeyboardEnter @"\x1b ENTER \x1b"
@@ -40,8 +40,8 @@
     NSMutableDictionary *_appToAppIdMappings;
 
     NSTimer *_pairingTimer;
-    UIAlertView *_pairingAlert;
-
+//    UIAlertView *_pairingAlert;
+    UIAlertController *_alert;
     NSMutableArray *_keyboardQueue;
     BOOL _keyboardQueueProcessing;
 
@@ -163,6 +163,30 @@
                 kKeyControlHome,
                 kKeyControlBack,
                 kKeyControlOK
+                //new
+                kKeyControlEnter,
+                kKeyControlMenu,
+                kKeyControlInfo,
+                kKeyControlExit,
+                kKeyControlRed,
+                kKeyControlGreen,
+                kKeyControlYellow,
+                kKeyControlBlue,
+                kKeyControlList,
+                kKeyControlAD,
+                kKeyControl0,
+                kKeyControl1,
+                kKeyControl2,
+                kKeyControl3,
+                kKeyControl4,
+                kKeyControl5,
+                kKeyControl6,
+                kKeyControl7,
+                kKeyControl8,
+                kKeyControl9,
+                kKeyControlSearch,
+                kKeyControlScreenRemote,
+                kKeyControlMute
         ]];
 
         capabilities = [capabilities arrayByAddingObjectsFromArray:kMouseControlCapabilities];
@@ -300,32 +324,74 @@
 
 -(void) showAlert
 {
+
     NSString *title = [[NSBundle mainBundle] localizedStringForKey:@"Connect_SDK_Pair_Title" value:@"Pairing with device" table:@"ConnectSDK"];
     NSString *message = [[NSBundle mainBundle] localizedStringForKey:@"Connect_SDK_Pair_Request" value:@"Please confirm the connection on your device" table:@"ConnectSDK"];
     NSString *ok = [[NSBundle mainBundle] localizedStringForKey:@"Connect_SDK_Pair_OK" value:@"OK" table:@"ConnectSDK"];
     NSString *cancel = [[NSBundle mainBundle] localizedStringForKey:@"Connect_SDK_Pair_Cancel" value:@"Cancel" table:@"ConnectSDK"];
     
-    _pairingAlert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:cancel otherButtonTitles:ok, nil];
+    _alert = [UIAlertController alertControllerWithTitle:title
+                              message:message
+                              preferredStyle:UIAlertControllerStyleAlert];
     if(self.pairingType == DeviceServicePairingTypePinCode || self.pairingType == DeviceServicePairingTypeMixed){
-        _pairingAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        _pairingAlert.message = [[NSBundle mainBundle] localizedStringForKey:@"Connect_SDK_Pair_Request_Pin" value:@"Please enter the pin code" table:@"ConnectSDK"];
+        message = [[NSBundle mainBundle] localizedStringForKey:@"Connect_SDK_Pair_Request_Pin" value:@"Please enter the pin code" table:@"ConnectSDK"];
+    [_alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+    
+    }];
     }
-    dispatch_on_main(^{ [_pairingAlert show]; });
+
+    
+    UIAlertAction* okAction = [UIAlertAction actionWithTitle:ok style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction * action) {
+    [self alertViewOk];
+    }];
+    [_alert addAction:okAction];
+    
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction * action) {
+    [self disconnect];
+    }];
+    [_alert addAction:cancelAction];
+    
+//    _pairingAlert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:cancel otherButtonTitles:ok, nil];
+    
+    
+    
+//    if(self.pairingType == DeviceServicePairingTypePinCode || self.pairingType == DeviceServicePairingTypeMixed){
+//        _pairingAlert.alertViewStyle = UIAlertViewStylePlainTextInput;
+//        _pairingAlert.message = [[NSBundle mainBundle] localizedStringForKey:@"Connect_SDK_Pair_Request_Pin" value:@"Please enter the pin code" table:@"ConnectSDK"];
+//    }
+    UIViewController *vc  = [[[UIApplication sharedApplication] windows] objectAtIndex:0].rootViewController;
+    
+    dispatch_on_main(^{ [vc presentViewController:_alert animated:true completion:nil];});
 }
 
--(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if(alertView == _pairingAlert){
-        if (buttonIndex == 0){
-            [self disconnect];
-        }else
-            if((self.pairingType == DeviceServicePairingTypePinCode || self.pairingType == DeviceServicePairingTypeMixed) && buttonIndex == 1){
-                NSString *pairingCode = [alertView textFieldAtIndex:0].text;
-                [self sendPairingKey:pairingCode success:nil failure:nil];
-            }
+//-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//    if(alertView == _pairingAlert){
+//        if (buttonIndex == 0){
+//            [self disconnect];
+//        }else
+//            if((self.pairingType == DeviceServicePairingTypePinCode || self.pairingType == DeviceServicePairingTypeMixed) && buttonIndex == 1){
+//                NSString *pairingCode = [alertView textFieldAtIndex:0].text;
+//                [self sendPairingKey:pairingCode success:nil failure:nil];
+//            }
+//    }
+//}
+-(void)alertViewOk{
+    if(self.pairingType == DeviceServicePairingTypePinCode || self.pairingType == DeviceServicePairingTypeMixed){
+    NSString *pairingCode = _alert.textFields[0].text;
+    [self sendPairingKey:pairingCode success:nil failure:nil];
     }
+    [_alert dismissViewControllerAnimated:true completion:nil];
 }
-
+-(void)alertViewCancel{
+    if(self.pairingType == DeviceServicePairingTypePinCode || self.pairingType == DeviceServicePairingTypeMixed){
+    [self disconnect];
+    }
+    [_alert dismissViewControllerAnimated:true completion:nil];
+}
 -(void) showAlertWithTitle:(NSString *)title andMessage:(NSString *)message
 {
     NSString *alertTitle = [[NSBundle mainBundle] localizedStringForKey:@"Connect_SDK_Pair_Title" value:title table:@"ConnectSDK"];
@@ -352,8 +418,8 @@
 
 - (void) socket:(WebOSTVServiceSocketClient *)socket registrationFailed:(NSError *)error
 {
-    if (_pairingAlert && _pairingAlert.isVisible)
-        dispatch_on_main(^{ [_pairingAlert dismissWithClickedButtonIndex:0 animated:NO]; });
+    if (_alert && _alert.isModalInPresentation)
+        dispatch_on_main(^{ [self alertViewCancel]; });
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(deviceService:pairingFailedWithError:)])
         dispatch_on_main(^{ [self.delegate deviceService:self pairingFailedWithError:error]; });
@@ -365,9 +431,9 @@
 {
     [_pairingTimer invalidate];
 
-    if (_pairingAlert && _pairingAlert.visible)
-        dispatch_on_main(^{ [_pairingAlert dismissWithClickedButtonIndex:1 animated:YES]; });
-
+    if (_alert && _alert.isBeingPresented){
+        dispatch_on_main(^{ [self alertViewOk];});
+    }
     if ([self.delegate respondsToSelector:@selector(deviceServicePairingSuccess:)])
         dispatch_on_main(^{ [self.delegate deviceServicePairingSuccess:self]; });
 
@@ -377,8 +443,8 @@
 
 - (void) socket:(WebOSTVServiceSocketClient *)socket didFailWithError:(NSError *)error
 {
-    if (_pairingAlert && _pairingAlert.visible)
-        dispatch_on_main(^{ [_pairingAlert dismissWithClickedButtonIndex:0 animated:YES]; });
+    if (_alert && _alert.isBeingPresented)
+        dispatch_on_main(^{ [self alertViewCancel]; });
 
     if ([self.delegate respondsToSelector:@selector(deviceService:didFailConnectWithError:)])
         dispatch_on_main(^{ [self.delegate deviceService:self didFailConnectWithError:error]; });
@@ -1327,23 +1393,9 @@
 
 - (void)setChannel:(ChannelInfo *)channelInfo success:(SuccessBlock)success failure:(FailureBlock)failure
 {
-    if (!channelInfo)
-    {
-        if (failure)
-            failure([ConnectError generateErrorWithCode:ConnectStatusCodeArgumentError andDetails:@"channelInfo cannot be empty"]);
-        return;
-    }
     NSURL *URL = [NSURL URLWithString:@"ssap://tv/openChannel"];
+    NSDictionary *payload = @{ @"channelId" : channelInfo.id};
 
-    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
-    if(channelInfo.id){
-        [payload setNullableObject:channelInfo.id forKey:@"channelId"];
-    }
-    
-    if(channelInfo.number){
-        [payload setNullableObject:channelInfo.number forKey:@"channelNumber"];
-    }
-    
     ServiceCommand *command = [ServiceAsyncCommand commandWithDelegate:self.socket target:URL payload:payload];
     command.callbackComplete = success;
     command.callbackError = failure;
@@ -1499,7 +1551,70 @@
 {
     [self sendMouseButton:WebOSTVMouseButtonHome success:success failure:failure];
 }
-
+- (void)enterWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure
+{
+    [self sendMouseButton:WebOSTVMouseButtonEnter success:success failure:failure];
+}
+- (void) menuWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonMenu success:success failure:failure];
+}
+- (void) redWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonRed success:success failure:failure];
+}
+- (void) greenWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonGreen success:success failure:failure];
+}
+- (void) yellowWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonYellow success:success failure:failure];
+}
+- (void) blueWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonBlue success:success failure:failure];
+}
+- (void) listWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonList success:success failure:failure];
+}
+- (void) adWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonAD success:success failure:failure];
+}
+- (void) number0WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton0 success:success failure:failure];
+}
+- (void) number1WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton1 success:success failure:failure];
+}
+- (void) number2WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton2 success:success failure:failure];
+}
+- (void) number3WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton3 success:success failure:failure];
+}
+- (void) number4WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton4 success:success failure:failure];
+}
+- (void) number5WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton5 success:success failure:failure];
+}
+- (void) number6WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton6 success:success failure:failure];
+}
+- (void) number7WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton7 success:success failure:failure];
+}
+- (void) number8WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton8 success:success failure:failure];
+}
+- (void) number9WithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButton9 success:success failure:failure];
+}
+- (void) searchWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonSearch success:success failure:failure];
+}
+- (void) screenRemoteSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonScreenRemote success:success failure:failure];
+}
+- (void) muteSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+    [self sendMouseButton:WebOSTVMouseButtonMute success:success failure:failure];
+}
 - (void)sendKeyCode:(NSUInteger)keyCode success:(SuccessBlock)success failure:(FailureBlock)failure
 {
     [self sendNotSupportedFailure:failure];
@@ -1737,20 +1852,45 @@
 
     WebOSWebAppSession *webAppSession = _webAppSessions[launchSession.appId];
 
-    if (webAppSession){
-        [webAppSession disconnectFromWebApp];
+    if (webAppSession && webAppSession.connected)
+    {
+        // This is a hack to enable closing of bridged web apps that we didn't open
+        NSDictionary *closeCommand = @{
+                @"contentType" : @"connectsdk.serviceCommand",
+                @"serviceCommand" : @{
+                        @"type" : @"close"
+                }
+        };
+
+        [webAppSession sendJSON:closeCommand success:^(id responseObject)
+        {
+            [webAppSession disconnectFromWebApp];
+
+            if (success)
+                success(responseObject);
+        } failure:^(NSError *closeError)
+        {
+            [webAppSession disconnectFromWebApp];
+
+            if (failure)
+                failure(closeError);
+        }];
+    } else
+    {
+        if (webAppSession)
+            [webAppSession disconnectFromWebApp];
+
+        NSURL *URL = [NSURL URLWithString:@"ssap://webapp/closeWebApp"];
+
+        NSMutableDictionary *payload = [NSMutableDictionary new];
+        if (launchSession.appId) [payload setValue:launchSession.appId forKey:@"webAppId"];
+        if (launchSession.sessionId) [payload setValue:launchSession.sessionId forKey:@"sessionId"];
+
+        ServiceCommand *command = [ServiceAsyncCommand commandWithDelegate:self.socket target:URL payload:payload];
+        command.callbackComplete = success;
+        command.callbackError = failure;
+        [command send];
     }
-    
-    NSURL *URL = [NSURL URLWithString:@"ssap://webapp/closeWebApp"];
-    
-    NSMutableDictionary *payload = [NSMutableDictionary new];
-    if (launchSession.appId) [payload setValue:launchSession.appId forKey:@"webAppId"];
-    if (launchSession.sessionId) [payload setValue:launchSession.sessionId forKey:@"sessionId"];
-    
-    ServiceCommand *command = [ServiceAsyncCommand commandWithDelegate:self.socket target:URL payload:payload];
-    command.callbackComplete = success;
-    command.callbackError = failure;
-    [command send];
 }
 
 - (void)joinWebApp:(LaunchSession *)webAppLaunchSession success:(WebAppLaunchSuccessBlock)success failure:(FailureBlock)failure
@@ -1972,7 +2112,7 @@
                                                  success(status);
                                              }
                                              
-                                         } failure:failure];    
+                                         } failure:failure];
     return subscription;
 }
 
@@ -2063,7 +2203,35 @@
     if (!_keyboardQueueProcessing)
         [self sendKeys];
 }
-
+//- (void)clearAll{
+//    _keyboardQueueProcessing = YES;
+//    NSString *target = @"ssap://com.webos.service.ime/deleteCharacters";
+//    NSUInteger count = _keyboardQueue.count;
+//    NSRange deleteRange = NSMakeRange(0, count);
+//    [_keyboardQueue removeObjectsInRange:deleteRange];
+//    NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
+//
+//    [payload setObject:@(count) forKey:@"count"];
+//
+//    NSURL *URL = [NSURL URLWithString:target];
+//
+//    ServiceCommand *command = [ServiceCommand commandWithDelegate:self.socket target:URL payload:payload];
+//    command.callbackComplete = ^(id responseObject)
+//    {
+//        _keyboardQueueProcessing = NO;
+//
+//        if (_keyboardQueue.count > 0)
+//            [self sendKeys];
+//    };
+//    command.callbackError = ^(NSError *error)
+//    {
+//        _keyboardQueueProcessing = NO;
+//
+//        if (_keyboardQueue.count > 0)
+//            [self sendKeys];
+//    };
+//    [command send];
+//}
 - (void) sendKeys
 {
     _keyboardQueueProcessing = YES;
@@ -2118,7 +2286,7 @@
         [_keyboardQueue removeObjectsInRange:textRange];
 
         [payload setObject:stringToSend forKey:@"text"];
-        [payload setObject:@(NO) forKey:@"replace"];
+        [payload setObject:@(YES) forKey:@"replace"];
     }
 
     NSURL *URL = [NSURL URLWithString:target];

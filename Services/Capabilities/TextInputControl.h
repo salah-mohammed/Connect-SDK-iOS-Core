@@ -54,5 +54,5 @@ typedef void (^ TextInputStatusInfoSuccessBlock)(TextInputStatusInfo *textInputS
 - (void) sendText:(NSString *)input success:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) sendEnterWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
 - (void) sendDeleteWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
-
+//- (void)clearAll;
 @end
