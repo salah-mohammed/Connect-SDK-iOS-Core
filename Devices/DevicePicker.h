@@ -57,7 +57,7 @@
  *
  * @param sender On iPad, this should be a UIView for the popover view to animate from. On iPhone, this property is ignored.
  */
-- (void) showPicker:(id)sender;
+- (void) showPicker:(id)sender background:(UIColor*)color;
 
 /*!
  * This method will animate an action sheet onto the screen containing a button for each discovered ConnectableDevice. Due to the nature of action sheets, it is not possible to update the action sheet after it has appeared. It is recommended to use the showPicker: method if you want a picker that will update in real time.

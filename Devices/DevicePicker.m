@@ -66,7 +66,7 @@
 
 #pragma mark - Picker display methods
 
-- (void) showPicker:(id)sender
+- (void) showPicker:(id)sender background:(UIColor*)color
 {
     [self sortDevices];
 
@@ -78,7 +78,8 @@
     _tableViewController.title = pickerTitle;
     _tableViewController.tableView.delegate = self;
     _tableViewController.tableView.dataSource = self;
-    
+    _tableViewController.tableView.backgroundColor=color;
+    _tableViewController.view.backgroundColor=color;
     _navigationController = [[UINavigationController alloc] initWithRootViewController:_tableViewController];
     
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
