@@ -389,9 +389,7 @@
     [_pairingAlertViewController dismissViewControllerAnimated:true completion:nil];
 }
 -(void)alertViewCancel{
-    if(self.pairingType == DeviceServicePairingTypePinCode || self.pairingType == DeviceServicePairingTypeMixed){
     [self disconnect];
-    }
     [_pairingAlertViewController dismissViewControllerAnimated:true completion:nil];
 }
 -(void) showAlertWithTitle:(NSString *)title andMessage:(NSString *)message
@@ -422,7 +420,7 @@
 }
 
 -(void)dismissPinAlertView{
-    if (_pinAlertViewController && _pinAlertViewController.isBeingPresented){
+    if (_pinAlertViewController && _pinAlertViewController.isViewLoaded){
         [_pinAlertViewController dismissViewControllerAnimated:true completion:nil];
     }
 //    if (_pinAlertView && _pinAlertView.isVisible){
@@ -439,7 +437,7 @@
 
 - (void) socket:(WebOSTVServiceSocketClient *)socket registrationFailed:(NSError *)error
 {
-    if (_pairingAlertViewController && _pairingAlertViewController.isModalInPresentation)
+    if (_pairingAlertViewController && _pairingAlertViewController.isViewLoaded)
         dispatch_on_main(^{ [self alertViewCancel]; });
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(deviceService:pairingFailedWithError:)])
@@ -452,7 +450,7 @@
 {
     [_pairingTimer invalidate];
 
-    if (_pairingAlertViewController && _pairingAlertViewController.isBeingPresented){
+    if (_pairingAlertViewController && _pairingAlertViewController.isViewLoaded){
         dispatch_on_main(^{ [self alertViewOk];});
     }
     if ([self.delegate respondsToSelector:@selector(deviceServicePairingSuccess:)])
@@ -464,7 +462,7 @@
 
 - (void) socket:(WebOSTVServiceSocketClient *)socket didFailWithError:(NSError *)error
 {
-    if (_pairingAlertViewController && _pairingAlertViewController.isBeingPresented)
+    if (_pairingAlertViewController && _pairingAlertViewController.isViewLoaded)
         dispatch_on_main(^{ [self alertViewCancel]; });
 
     if ([self.delegate respondsToSelector:@selector(deviceService:didFailConnectWithError:)])
