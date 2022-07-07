@@ -113,11 +113,13 @@
         
         UIAlertAction* okAction = [UIAlertAction actionWithTitle:ok style:UIAlertActionStyleDefault
                                        handler:^(UIAlertAction * action) {
+            _connectingAlertViewController = nil;
         }];
         [_connectingAlertViewController addAction:okAction];
         
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel
                                        handler:^(UIAlertAction * action) {
+        _connectingAlertViewController = nil;
         if ( _connecting){
         [self disconnect];
         }
